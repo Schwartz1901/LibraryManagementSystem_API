@@ -31,7 +31,7 @@ namespace LibraryManagementSystem_API.Business.Services
         public async Task<PostBookDto> Post(PostBookDto postBookDto)
         {
             var result = await _bookRepository.Post();
-            return results;
+            return result;
         }
     }
 }

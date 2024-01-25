@@ -13,9 +13,10 @@ namespace LibraryManagementSystem_API.Business.Mapper
             //Auth Mapping Profile
             CreateMap<UserEntity, LoginRequestDto>()
                 .ForMember(dest => dest.username, opt => opt.MapFrom(src => src.UserName))
-                .ForMember(dest => dest.password, opt => opt.MapFrom(src => src.Password)).ReverseMap();
+                .ForMember(dest => dest.password, opt => opt.MapFrom(src => src.Password))
+                .ForMember(dest => dest.role, opt => opt.MapFrom(src => src.Role)).ReverseMap();
             // Book Mapping Profile
             CreateMap<GetBookDto, BookEntity>().ReverseMap();
         }
-    }
+    } 
 }

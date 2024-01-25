@@ -7,6 +7,13 @@ namespace LibraryManagementSystem_API.DataAccess.Repositories.Concrete
 {
     public class AuthRepository : IAuthRepository
     {
+        private readonly IConfiguration configuration;
 
+        public AuthRepository(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public string CreateJwtToken(UserEntity user) { }
     }
 }

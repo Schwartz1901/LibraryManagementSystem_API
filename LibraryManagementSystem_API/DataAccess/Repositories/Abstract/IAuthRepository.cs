@@ -5,5 +5,6 @@ namespace LibraryManagementSystem_API.DataAccess.Repositories.Abstract
 {
     public interface IAuthRepository
     {
+        public string CreateJwtToken(UserEntity user);
     }
 }

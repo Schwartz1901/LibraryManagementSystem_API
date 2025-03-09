@@ -1,4 +1,5 @@
-﻿using LibraryManagementSystem_API.DataAccess.Entities;
+﻿using Elastic.Clients.Elasticsearch;
+using LibraryManagementSystem_API.DataAccess.Entities;
 using LibraryManagementSystem_API.DataAccess.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +17,13 @@ namespace LibraryManagementSystem_API.DataAccess.Repositories.Concrete
             
         }
 
-        public Task<UserEntity> GetList() 
+        public Task<List<UserEntity>> GetUsers() 
         { 
-            return null;
+            var userList = dbSet.ToListAsync();
+            return userList;
         
         }
+
 
         public Task<UserEntity> GetById() 
         { 
@@ -28,10 +31,25 @@ namespace LibraryManagementSystem_API.DataAccess.Repositories.Concrete
         
         }
 
-        public async Task<UserEntity> GetByUsername(string username) 
+        public async Task<UserEntity> GetUserByRefreshToken(string refreshToken)
+        {
+            var user = await dbSet.SingleOrDefaultAsync(u => u.RefreshToken == refreshToken);
+
+            return user;
+        }
+
+        public async Task<UserEntity> PutUser(UserEntity user)
+        {
+            dbSet.Update(user);
+            await _dbContext.SaveChangesAsync();
+
+            return user;
+        }
+
+        public async Task<UserEntity> GetUserByName(string username) 
         {
             if (string.IsNullOrEmpty(username)) return null;
-            var user = await dbSet.FirstOrDefaultAsync(u => username == u.UserName);
+            var user = await dbSet.FirstOrDefaultAsync(u => u.UserName == username);
             return user;
         }
 

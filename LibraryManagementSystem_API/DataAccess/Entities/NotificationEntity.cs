@@ -5,9 +5,13 @@ namespace LibraryManagementSystem_API.DataAccess.Entities
     public class NotificationEntity
     {
         [Key]
-        public Guid NotificationId { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string Content { get; set; }
-        public UserEntity Receiver { get; set; }
+        public int Id { get; set; }
+
+        public string Username { get; set; }
+        public string Text { get; set; }
+
+        public DateTime CreateAt { get; set; }
+
+        public bool Read { get; set; }
     }
 }

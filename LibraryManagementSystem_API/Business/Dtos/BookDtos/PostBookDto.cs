@@ -1,20 +1,31 @@
 ﻿using LibraryManagementSystem_API.DataAccess.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryManagementSystem_API.Business.Dtos.BookDtos
 {
     public class PostBookDto
     {
-        public Guid BookId { get; set; }
-        public string Author { get; set; }
-        public string Title { get; set; }
-        public int Price { get; set; }
-        public bool Availability { get; set; }
-        public string ImageUrl { get; set; }
+        public string Name { get; set; }
 
-        public string Categories { get; set; }
+        public string? Author { get; set; }
 
-        public string Description { get; set; }
+        public string? Category { get; set; }
 
-        public string Position { get; set; }
+        public int? Stock {  get; set; }
+
+        public string? Position { get; set; }
+
+        public IFormFile? Image { get; set; }
+
+        public DateTime? ReleaseDate { get; set; }
+
+        public string? Length { get; set; }
+
+        public string Publisher { get; set; }
+
+        public string? Synopsis { get; set; }
+
+        public IFormFile Ebook { get; set; }
+
     }
 }

@@ -16,6 +16,16 @@ namespace LibraryManagementSystem_API.DataAccess.Entities
         public DateTime? DoB { get; set; }
         public string? Address { get; set; }
 
+        public int UserScore { get; set; }
+
         public string? Role {  get; set; }
+
+        public DateTime? CreationDate { get; set; }
+
+        public string? RefreshToken { get; set; }
+
+        public DateTime RefreshTokenExpireTime { get; set; }
+
+        public string? Bio { get; set; }
     }
 }

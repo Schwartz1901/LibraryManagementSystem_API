@@ -25,7 +25,6 @@ D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\staticwebassets.build.json
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\staticwebassets.development.json
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\scopedcss\bundle\LibraryManagementSystem_API.styles.css
-D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\LibraryManagementSystem_API.csproj.CopyComplete
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\LibraryManagementSystem_API.dll
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\refint\LibraryManagementSystem_API.dll
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\LibraryManagementSystem_API.pdb
@@ -77,3 +76,4 @@ D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\bin\Debug\net7.
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\bin\Debug\net7.0\AutoMapper.dll
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\repos\LibraryManagementSystem_API\LibraryManagementSystem_API\obj\Debug\net7.0\LibraryM.97753E72.Up2Date

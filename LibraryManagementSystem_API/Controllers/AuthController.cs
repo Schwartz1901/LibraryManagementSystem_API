@@ -41,5 +41,13 @@ namespace LibraryManagementSystem_API.Controllers
             else 
             { return BadRequest(result); }
         }
+
+        [HttpPost("refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshToken refreshToken)
+        {
+            var response = await _authServices.Refresh(refreshToken);
+
+            return Ok(response);
+        }
     }
 }

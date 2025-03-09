@@ -14,21 +14,36 @@ namespace LibraryManagementSystem_API.Business.Services
     public class AuthServices : IAuthServices
     {
         private readonly IUserRepository _userRepository;
+        private readonly IAuthRepository _authRepository;
         private readonly IMapper _mapper;
 
-        public AuthServices(IUserRepository userRepository, IMapper mapper) {
+        public AuthServices(IUserRepository userRepository, IAuthRepository authRepository,IMapper mapper) {
             _userRepository = userRepository;
+            _authRepository = authRepository;
             _mapper = mapper;
         }
         public async Task<LoginResponseDto> Login(string username, string password) { 
-            var user = await _userRepository.GetByUsername(username);
+            var user = await _userRepository.GetUserByName(username);
             if (user != null)
             {
                 var cres = _mapper.Map<LoginRequestDto>(user);
 
                 if (username == cres.username && GetHashedPassword(password) == cres.password)
                 {
-                    return new LoginResponseDto { message = "Login Successfull.", success = true };
+                    var accessToken = _authRepository.CreateAccessToken(user);
+                    var refreshToken = _authRepository.CreateRefreshToken();
+
+                    user.RefreshToken = refreshToken;
+                    user.RefreshTokenExpireTime = DateTime.Now.AddHours(1);
+
+                    var updateUser = await _userRepository.PutUser(user);
+                    
+
+                    return new LoginResponseDto { message = "Login Successfull.", 
+                        success = true, 
+                        role= user.Role.ToLower(), 
+                        Accesstoken = accessToken, 
+                        Refreshtoken = refreshToken };
                 }
                 else
                 {
@@ -47,7 +62,7 @@ namespace LibraryManagementSystem_API.Business.Services
                 return new RegisterResponseDto { message = "The password does not match!", success = false };
             }
             
-            var user = await _userRepository.GetByUsername(username);
+            var user = await _userRepository.GetUserByName(username);
             if (user != null)
             {
                 return new RegisterResponseDto { message = "The account is already existed!", success = false };
@@ -56,10 +71,37 @@ namespace LibraryManagementSystem_API.Business.Services
             {
                 string hashedPassword = GetHashedPassword(password);
 
-                _userRepository.Post(new UserEntity { UserId = Guid.NewGuid(), UserName = username, Password = hashedPassword});
+                _userRepository.Post(new UserEntity { UserId = Guid.NewGuid(), UserName = username, Password = hashedPassword, Role="User", CreationDate = DateTime.Now});
                 return new RegisterResponseDto { message = "The account is successfully registered", success = true };
             }
         }
+
+        public async Task<RefreshDto> Refresh(RefreshToken refreshToken)
+        {
+            var user = await _userRepository.GetUserByRefreshToken(refreshToken.Refreshtoken);
+
+            if (user != null || user.RefreshTokenExpireTime <= DateTime.Now) 
+            {
+                throw new UnauthorizedAccessException("Invalid Refresh Token!");
+            }
+
+            var accessToken = _authRepository.CreateAccessToken(user);
+            var newRefreshToken = _authRepository.CreateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpireTime = DateTime.UtcNow.AddHours(1);
+
+            var updateUser = _userRepository.PutUser(user);
+
+
+            return new RefreshDto
+            {
+                message = "Refresh",
+                success = true,
+                refreshToken = newRefreshToken
+            };
+        }
+    
 
         private string GetHashedPassword(string password) 
         {
